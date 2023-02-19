@@ -59,3 +59,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "foreman", "~> 0.87.2"
 
 
+
+
+
+gem "paranoia", "~> 2.6"
