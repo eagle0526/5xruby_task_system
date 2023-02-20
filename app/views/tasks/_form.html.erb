@@ -47,9 +47,20 @@
     </div>
 
 
+    <%# 暫時先用54行來代替，之後換成53行 %>
+    <%# <div class = "my-4"> %>
+      <%#= f.label :使用者 %>
+      <%#= select(:task, :user_id, User.all.pluck(:name, :id)) %>
+      <%#= f.select :user_id, [["yeee", 1]], class: "w-full" %>
+    <%# </div>         %>
 
     <div class = "my-4">
-      <%= f.submit "編輯任務" ,class: "main-btn" %>
+      <%= f.label :使用者 %>
+      <%= f.text_field :user_id, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.submit "新增任務" ,class: "main-btn" %>
       <%= link_to '回上一頁', root_path, class: "second-btn" %>      
     </div>
 

@@ -14,10 +14,10 @@ class TasksController < ApplicationController
   def create
     # render html: params
     @task = Task.new(params_task)
-    user = User.first
+    # user = User.first
     
     # 先這樣設定，之後要刪掉
-    @task.user_id = user.id
+    # @task.user_id = user.id
 
     if @task.save
       
@@ -37,7 +37,7 @@ class TasksController < ApplicationController
   def update
 
     if @task.update(params_task)
-      redirect_to tasks_path, notice: "更新任務"
+      redirect_to tasks_path, notice: "成功更新任務"
     else
       render :edit
     end
@@ -53,7 +53,7 @@ class TasksController < ApplicationController
   private
 
   def params_task
-    params.require(:task).permit(:title, :content, :priority, :state, :classification, :start_time, :end_time)
+    params.require(:task).permit(:title, :content, :priority, :state, :classification, :start_time, :end_time, :user_id)
   end
 
   def find_task
