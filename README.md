@@ -1,24 +1,47 @@
-# README
+## 想像網站成品會是什麼樣子
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+> ---    
+> **任務功能**   
+> 1. 可新增自己的任務。   
+> 2. 使用者登入後，只能看見自己建立的任務。   
+> 3. 可設定任務的開始及結束時間。     
+> 4. 可設定任務的優先順序（高、中、低）。     
+> 5. 可設定任務目前的狀態（待處理、進行中、已完成）。     
+> 6. 可依狀態篩選任務。   
+> 7. 可以任務的標題、內容進行搜尋。   
+> 8. 可為任務加上分類標籤。   
+> 9. 任務列表，並可依優先順序、開始時間及結束時間等進行排序。     
+> 
+> ---    
 
-Things you may want to cover:
+-------------
 
-* Ruby version
+### Model有哪些
 
-* System dependencies
+1. 有使用者有一定有user的model -> User
+2. 要可以CURD任務 -> Task
 
-* Configuration
+Ps. 一個使用者會有很多的任務，因爲使用者只會看見自己的任務，所以兩者關係是一對多(一個任務只會有一個使用者)
 
-* Database creation
+-------------
 
-* Database initialization
+### 欄位有哪些
 
-* How to run the test suite
+* User的欄位 - 順便舉個例子
+  - id: 1
+  - Email: tasksystem@gmail.com
+  - password: good123task
 
-* Services (job queues, cache servers, search engines, etc.)
 
-* Deployment instructions
-
-* ...
+* Task的欄位 - 順便舉個例子
+  - id: 1
+  - title: 做使用者系統(任務名稱) - string
+  - content: 純手刻，不使用devise做出使用者系統(任務內容) - text
+  - priority: high、medium、low(任務優先順序) - string
+  - state: 待處理、進行中、已完成(任務狀態) - string
+  - classification: 軟體、後端、前端(任務標籤) - string
+  - start＿time: "2023-02-18T14:30:00+08:00"(任務開始時間) - datetime
+  - end＿time: "2023-02-28T19:30:00+08:00"(任務結束時間) - datetime
+  - deleted_at: "2023-02-25T19:30:00+08:00"(任務假刪除) - datetime:index
+  - user_id: 1(屬於使用者1的任務) - integer
+  

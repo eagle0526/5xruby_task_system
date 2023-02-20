@@ -1,0 +1,69 @@
+<section>
+  <%= form_with model: @task do |f| %>
+
+    <div class = "my-4">
+      <%= f.label :任務標題 %>
+      <%= f.text_field :title, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :任務內容 %>
+      <%= f.text_area :content, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :任務優先度 %>
+      <%= f.select :priority, [["高", 1], ["中", 2], ["低", 3]], {},  class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :任務狀態 %>
+      <%= f.select :state, [["待處理", 1], ["進行中", 2], ["已完成｀", 3]], {}, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :分類 %>
+      <%= f.text_field :classification, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :開始時間 %>
+      <%= f.text_field :start_time, class: "form-field",  data: {
+                                                            controller: "flatpickr",
+                                                            flatpickr_date_format: "Y-m-d   h:i",
+                                                            flatpickr_min_date: Time.zone.now,
+                                                            flatpickr_enable_time: true,
+                                                          } %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :結束時間 %>
+      <%= f.text_field :end_time, class: "form-field",  data: {
+                                                            controller: "flatpickr",
+                                                            flatpickr_date_format: "Y-m-d   h:i",
+                                                            flatpickr_min_date: Time.zone.now,
+                                                            flatpickr_enable_time: true,
+                                                          } %>
+    </div>
+
+
+    <%# 暫時先用54行來代替，之後換成53行 %>
+    <%# <div class = "my-4"> %>
+      <%#= f.label :使用者 %>
+      <%#= select(:task, :user_id, User.all.pluck(:name, :id)) %>
+      <%#= f.select :user_id, [["yeee", 1]], class: "w-full" %>
+    <%# </div>         %>
+
+    <div class = "my-4">
+      <%= f.label :使用者 %>
+      <%= f.text_field :user_id, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.submit class: "main-btn" %>
+      <%= link_to '回上一頁', root_path, class: "second-btn" %>      
+    </div>
+
+  <% end %>
+
+</section>
