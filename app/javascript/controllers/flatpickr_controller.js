@@ -2,10 +2,9 @@ import { Controller } from "stimulus"
 import flatpickr from 'flatpickr';
 
 export default class extends Controller {
-  static targets = [  ]
+  static targets = [ "start", "end" ]
 
-  connect() {
-    // console.log(123);
-    flatpickr(this.element);
+  connect() {    
+    flatpickr(this.element);    
   }
 }

@@ -33,6 +33,7 @@
                                                             flatpickr_date_format: "Y-m-d   h:i",
                                                             flatpickr_min_date: Time.zone.now,
                                                             flatpickr_enable_time: true,
+                                                            flatpickr_target: "start"
                                                           } %>
     </div>
 
@@ -43,6 +44,7 @@
                                                             flatpickr_date_format: "Y-m-d   h:i",
                                                             flatpickr_min_date: Time.zone.now,
                                                             flatpickr_enable_time: true,
+                                                            flatpickr_target: "end"
                                                           } %>
     </div>
 
@@ -59,8 +61,8 @@
       <%= f.text_field :user_id, class: "form-field" %>
     </div>
 
-    <div class = "my-4">
-      <%= f.submit class: "main-btn" %>
+    <div class = "my-4">      
+      <%= f.submit @submit_button ,class: "main-btn" %>
       <%= link_to '回上一頁', root_path, class: "second-btn" %>      
     </div>
 

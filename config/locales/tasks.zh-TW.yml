@@ -1,10 +1,13 @@
 zh-TW:
   tasks:
-    Create: '新增任務'
-    Update: "更新任務"
     High: '高'
     Medium: "中"
     Low: "低"
     Pending: "待處理"
     Doing: "進行中"
     Ending: "已完成"
+
+  forms:
+    submit_create: "新增任務"
+    submit_update: "更新任務"
+

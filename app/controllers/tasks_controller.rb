@@ -4,11 +4,13 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.all
+    @tasks = Task.order(created_at: :desc)
   end
 
   def new
     @task = Task.new
+
+    @submit_button = t('forms.submit_create', default: 'Create')
   end
 
   def create
@@ -31,7 +33,7 @@ class TasksController < ApplicationController
   end
 
   def edit
-
+    @submit_button = t('forms.submit_update', default: 'Update')
   end
 
   def update
