@@ -57,13 +57,25 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
 
-      # 安裝 Chrome
-      - name: Install Chrome and dependencies
+      # # 安裝 Chrome
+      # - name: Install Chrome and dependencies
+      #   run: |
+      #     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+      #     echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+      #     sudo apt-get update
+      #     sudo apt-get install -y google-chrome-stable libgconf-2-4       
+      - name: Download Google Chrome
         run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable libgconf-2-4       
+          wget https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_109.0.5414.119-1_amd64.deb
+
+      - name: Install Google Chrome Dependencies
+        run: |
+          sudo apt-get -y install libgconf-2-4
+
+      - name: Install Google Chrome
+        run: |
+          sudo dpkg -i google-chrome-stable_109.0.5414.119-1_amd64.deb
+
 
       # 安裝 selenium-webdriver
       - name: Install Ruby gems
