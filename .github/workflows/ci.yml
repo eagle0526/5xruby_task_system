@@ -71,12 +71,6 @@ jobs:
           gem install selenium-webdriver
           gem install webdrivers
 
-      - name: Set up display
-        run: |
-          export DISPLAY=:99
-          sh -e /etc/init.d/xvfb start
-          sleep 3
-
       # Add or replace test runners here
       - name: Run tests
         # run: bin/rake
