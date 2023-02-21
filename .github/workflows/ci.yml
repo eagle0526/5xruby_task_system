@@ -42,6 +42,7 @@ jobs:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
       DATABASE_URL: "postgres://rails:password@localhost:5432/rails_test"
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -56,7 +57,23 @@ jobs:
       - name: Set up database schema
         run: bin/rails db:schema:load
 
+      # 安裝 Chrome
+      - name: Install Chrome and dependencies
+        run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable libgconf-2-4       
+
+      # 安裝 selenium-webdriver
+      - name: Install Ruby gems
+        run: |
+          gem install selenium-webdriver
+          gem install webdrivers
+
       # Add or replace test runners here
       - name: Run tests
         # run: bin/rake
         run: bundle exec rspec
+        
+
