@@ -1,6 +1,9 @@
 <section>
   <%= form_with model: @task do |f| %>
 
+
+    <%= render "error_messages", tasks: @task %>
+
     <div class = "my-4">
       <%= f.label :任務標題 %>
       <%= f.text_field :title, class: "form-field" %>
