@@ -8,3 +8,21 @@ zh-TW:
     Pending: "待處理"
     Doing: "進行中"
     Ending: "已完成"
+    title: "標題"
+
+  activerecord:
+    errors:
+      models:
+        task:
+          attributes:
+            title:
+              blank: "任務標題不能為空"
+            content: 
+              blank: "任務內容不能為空"
+            start_time:
+              blank: "任務開始時間不能為空"
+            end_time: 
+              blank: "任務結束時間不能為空"
+            user:
+              required: "一定要有一個使用者"
+
