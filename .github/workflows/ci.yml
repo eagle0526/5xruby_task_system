@@ -29,6 +29,7 @@ jobs:
         run: yarn install
   feature-test:
     runs-on: ubuntu-latest
+
     services:
       postgres:
         image: postgres:11-alpine
@@ -38,6 +39,14 @@ jobs:
           POSTGRES_DB: rails_test
           POSTGRES_USER: rails
           POSTGRES_PASSWORD: password
+
+      chrome:
+        image: selenium/standalone-chrome-debug:3.141.59-20210127
+        ports:
+          - 4444:4444
+          - 5900:5900
+        options: --shm-size=2g
+
     env:
       RAILS_ENV: test
       RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
@@ -53,33 +62,22 @@ jobs:
           ruby-version: 3.1.1
           bundler-cache: true
 
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
 
       # Add or replace database setup steps here
       - name: Set up database schema
         run: bin/rails db:schema:load
+      
 
-
-      # 安裝 Chrome
-      - name: Install Chrome and dependencies
+      - name: Run RSpec with Selenium
+        env:
+          SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
         run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable libgconf-2-4       
-
-
-      # 安裝 selenium-webdriver
-      - name: Install Ruby gems
-        run: |
-          gem install selenium-webdriver
-          gem install webdrivers
-
-
-      # Add or replace test runners here
-      - name: Run tests
-        # run: bin/rake
-        run: bundle exec rspec
-
+          xvfb-run bundle exec rspec spec/features/
+          
 
       # Add Code Coverage
       - name: Create Coverage Artifact
