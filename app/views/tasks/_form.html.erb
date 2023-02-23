@@ -16,12 +16,12 @@
 
     <div class = "my-4">
       <%= f.label :任務優先度 %>
-      <%= f.select :priority, [["高", 1], ["中", 2], ["低", 3]], {},  class: "form-field" %>
+      <%= f.select :priority, [["高", "高"], ["中", "中"], ["低", "低"]], {},  class: "form-field" %>
     </div>
 
     <div class = "my-4">
       <%= f.label :任務狀態 %>
-      <%= f.select :state, [["待處理", 1], ["進行中", 2], ["已完成｀", 3]], {}, class: "form-field" %>
+      <%= f.select :state, [["待處理", "待處理"], ["進行中", "進行中"], ["已完成", "已完成"]], {}, class: "form-field" %>
     </div>
 
     <div class = "my-4">

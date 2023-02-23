@@ -4,7 +4,17 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    @tasks = Task.order(created_at: :desc)
+    tasks = Task.order(created_at: :desc)
+    @query = tasks.ransack(params[:q])
+    @tasks = @query.result(distinct: true)
+
+    # tasks = Task.order(created_at: :desc)
+    # @query = tasks.ransack(params[:q])
+    # @tasks = @query.result(distinct: true).where("state ILIKE :search OR title ILIKE :search", search:  "%#{params[:search]}%")
+
+    
+
+
   end
 
   def new
