@@ -10,6 +10,10 @@ zh-TW:
     Ending: "已完成"
     title: "標題"
 
+  forms:
+    submit_create: "新增任務"
+    submit_update: "更新任務"
+
   activerecord:
     errors:
       models:
