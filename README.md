@@ -62,24 +62,16 @@ SELECT DISTINCT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND ("
 (3) 最後我們根據 "created_at" 的 "DESC" 來排列任務
 ```
 
-#### 3個物件，搜尋出2個物件的SQL速度
-```md
- :040 > Task.where("title ILIKE ? OR state ILIKE ?", "%任務%", "%任務%").explain
-  Task Load (3.2ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND (title ILIKE '%任務%' OR state ILIKE '%任務%')
- =>                              
-EXPLAIN for: SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND (title ILIKE '%任務%' OR state ILIKE '%任務%')
-                                       QUERY PLAN
-----------------------------------------------------------------------------------------
- Bitmap Heap Scan on tasks  (cost=4.16..9.51 rows=1 width=216)
-   Recheck Cond: (deleted_at IS NULL)   
-   Filter: (((title)::text ~~* '%任務%'::text) OR ((state)::text  ~ ~* '%任務%'::text))
-   ->  Bitmap Index Scan on index_tasks_on_deleted_at  (cost=0.00..4.16 rows=2 width=0)
-         Index Cond: (deleted_at IS NULL)
-```
 
 
 
-4個物件，搜尋出3個物件的SQL速度
+## 2、數據查看，4項任務，搜尋標題"任務"，跑出3項任務 
+
+### 2-1、explain 數據
+
+#### 2-1-1、加上index前
+
+
 ```md
  :042 > Task.where("title ILIKE ? OR state ILIKE ?", "%任務%", "%任務%").explain
   Task Load (3.0ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND (title ILIKE '%任務%' OR state ILIKE '%任務%')
@@ -93,4 +85,59 @@ EXPLAIN for: SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AN
    ->  Bitmap Index Scan on index_tasks_on_deleted_at  (cost=0.00..4.16 rows=2 width=0)
          Index Cond: (deleted_at IS NULL)
 ```
+
+#### 2-1-2、加上index後
+
+```md
+ :047 > Task.where("title ILIKE ? OR state ILIKE ?", "%任務%", "%任務%").explain
+  Task Load (1.6ms)  SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND (title ILIKE '%任務%' OR state ILIKE '%任務%')
+ => 
+EXPLAIN for: SELECT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND (title ILIKE '%任務%' OR state ILIKE '%任務%')
+                                                 QUERY PLAN
+-------------------------------------------------------------------------------------------------------------
+ Seq Scan on tasks  (cost=0.00..1.17 rows=1 width=216)
+   Filter: ((deleted_at IS NULL) AND (((title)::text ~~* '%任務%'::text) OR ((state)::text ~~* '%任務%'::text)))
+(2 rows)
+```
+
+
+
+
+### 2-2、log/development.log 數據
+
+#### 2-2-1、加上title index後前
+
+```md
+Started GET "/tasks?q%5Btitle_or_state_cont%5D=%E4%BB%BB%E5%8B%99&commit=%E6%A8%99%E9%A1%8C%E7%AF%A9%E9%81%B8" for ::1 at 2023-02-23 18:28:43 +0800
+Processing by TasksController#index as HTML
+  Parameters: {"q"=>{"title_or_state_cont"=>"任務"}, "commit"=>"標題篩選"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  [1m[36mTask Load (5.1ms)[0m  [1m[34mSELECT DISTINCT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND ("tasks"."title" ILIKE '%任務%' OR "tasks"."state" ILIKE '%任務%') ORDER BY "tasks"."created_at" DESC[0m
+  ↳ app/views/tasks/index.html.erb:43
+  Rendered tasks/index.html.erb within layouts/application (Duration: 10.7ms | Allocations: 2416)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 57)
+  Rendered layout layouts/application.html.erb (Duration: 26.7ms | Allocations: 6806)
+
+> Completed 200 OK in 78ms (Views: 22.0ms | ActiveRecord: 25.9ms | Allocations: 12666)
+```
+
+
+#### 2-2-2、加上title index後
+```md
+Started GET "/tasks?q%5Btitle_or_state_cont%5D=%E4%BB%BB%E5%8B%99&commit=%E6%A8%99%E9%A1%8C%E7%AF%A9%E9%81%B8" for ::1 at 2023-02-23 18:36:49 +0800
+Processing by TasksController#index as HTML
+  Parameters: {"q"=>{"title_or_state_cont"=>"任務"}, "commit"=>"標題篩選"}
+  Rendering layout layouts/application.html.erb
+  Rendering tasks/index.html.erb within layouts/application
+  [1m[36mTask Load (1.8ms)[0m  [1m[34mSELECT DISTINCT "tasks".* FROM "tasks" WHERE "tasks"."deleted_at" IS NULL AND ("tasks"."title" ILIKE '%任務%' OR "tasks"."state" ILIKE '%任務%') ORDER BY "tasks"."created_at" DESC[0m
+  ↳ app/views/tasks/index.html.erb:43
+  Rendered tasks/index.html.erb within layouts/application (Duration: 8.4ms | Allocations: 2304)
+  Rendered shared/_flash.html.erb (Duration: 0.1ms | Allocations: 57)
+  Rendered layout layouts/application.html.erb (Duration: 15.9ms | Allocations: 6692)
+
+> Completed 200 OK in 31ms (Views: 15.3ms | ActiveRecord: 1.8ms | Allocations: 7933)
+```
+
+
 
