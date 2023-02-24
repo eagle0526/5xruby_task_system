@@ -91,4 +91,21 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 =end
+
+  # 關閉其他正在使用數據庫的進程或套件
+  config.before(:suite) do
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  # 開始測試之前開始事務
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+    DatabaseCleaner.start
+  end
+  
+  # 在測試結束後回滾事務
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+  
 end

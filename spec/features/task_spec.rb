@@ -16,9 +16,18 @@ feature "Task", type: :feature do
       select "待處理", from: "task_state"
       fill_in "task_classification", with: "後端工程師"
 
-      
+      fill_in "task_start_time", with: "2023-02-24 11:55"
+      find("#task_start_time").click
+      find(".flatpickr-day.today").click
+      find(".flatpickr-time").click
+      find(".arrowDown").click
+            
 
-      # select "yeee", from: "task_user_id"    
+      fill_in "task_end_time", with: "2023-02-17 12:05"
+      find("#task_end_time").click
+      find(".flatpickr-day.today").click
+      find(".flatpickr-time").click      
+      find(".arrowUp").click
       
       # 先固定寫一過 user 進去   
       user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
@@ -31,8 +40,8 @@ feature "Task", type: :feature do
     end
 
     scenario "update an existing task" do
-      user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
 
+      user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
       task = Task.create(title: "舊任務", content: "舊任務內容", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
       
       visit edit_task_path(task)
@@ -51,8 +60,8 @@ feature "Task", type: :feature do
 
       user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
 
-      task1 = Task.create(title: "task1", content: "first task", user_id: user.id)
-      task2 = Task.create(title: "task2", content: "second task", user_id: user.id)
+      task1 = Task.create(title: "task1", content: "first task", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
+      task2 = Task.create(title: "task2", content: "second task", start_time: "2024-02-26 11:00", end_time: "2025-02-26 12:00", user_id: user.id)
       visit tasks_path
 
       expect(page).to have_content(task1.title)
@@ -64,7 +73,7 @@ feature "Task", type: :feature do
     scenario "delete an existing task" do
 
       user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
-      task1 = Task.create(title: "task1", content: "first task", user_id: user.id)
+      task1 = Task.create(title: "task1", content: "first task", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
 
       visit tasks_path
       click_link "delete"
@@ -73,18 +82,18 @@ feature "Task", type: :feature do
     end
 
 
-    # scenario "task order by create time" do
-    #   user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
-    #   task1 = Task.create(title: "task1", content: "first task", user_id: user.id)
-    #   task2 = Task.create(title: "task2", content: "second task", user_id: user.id)
-    #   task3 = Task.create(title: "task3", content: "third task", user_id: user.id)
+    scenario "task order by create time" do
+      user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
+      task1 = Task.create(title: "task1", content: "first task", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
+      task2 = Task.create(title: "task2", content: "second task", start_time: "2024-02-26 11:00", end_time: "2025-02-26 12:00", user_id: user.id)
+      task3 = Task.create(title: "task3", content: "third task", start_time: "2024-02-27 11:00", end_time: "2025-02-27 12:00", user_id: user.id)
 
-    #   visit tasks_path
+      visit tasks_path
       
-    #   expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: task3.title)
-    #   expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: task2.title)
-    #   expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(2)", text: task1.title)      
-    # end
+      expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: task3.title)
+      expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: task2.title)
+      expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(2)", text: task1.title)
+    end
 
 
 end

@@ -78,6 +78,12 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.2.0)
     crass (1.0.6)
+    database_cleaner (2.0.1)
+      database_cleaner-active_record (~> 2.0.0)
+    database_cleaner-active_record (2.0.1)
+      activerecord (>= 5.a)
+      database_cleaner-core (~> 2.0.0)
+    database_cleaner-core (2.0.1)
     date (3.3.3)
     diff-lcs (1.5.0)
     dotenv (2.8.1)
@@ -253,6 +259,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
+  database_cleaner
   dotenv-rails (~> 2.8)
   foreman (~> 0.87.2)
   jbuilder (~> 2.7)
