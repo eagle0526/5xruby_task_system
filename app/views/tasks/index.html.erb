@@ -53,22 +53,14 @@
             <%= task.start_time.strftime("%Y/%m/%d-%R") %>
           </td>
 
-          <%# <td class="px-6 py-4"> %>
-            <%#= task.start_time %>
-          <%# </td> %>
+          <td class="px-6 py-4">
+            <%= task.end_time.strftime("%Y/%m/%d-%R") %>
+          </td>
 
-          <%# <td class="px-6 py-4"> %>
-            <%#= task.end_time.strftime("%Y/%m/%d-%R") %>
-          <%# </td> %>
           <td class="px-6 py-4">
-            <%= task.end_time %>
-          </td>                
-          <%# <td class="px-6 py-4"> %>
-            <%#= task.created_at.strftime("%Y/%m/%d-%R") %>
-          <%# </td>                            %>
-          <td class="px-6 py-4">
-            <%= task.created_at %>
-          </td>                           
+            <%= task.created_at.strftime("%Y/%m/%d-%R") %>
+          </td>
+
           <td class="px-6 py-4"><%= link_to "編輯", edit_task_path(task), class: "main-btn px-4" %></td>                
           <td class="px-6 py-4"><%= link_to 'delete', task_path(task), data: {method: "delete"}, class: "second-btn" %></td>   
       </tr>
