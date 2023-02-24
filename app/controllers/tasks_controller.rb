@@ -7,14 +7,6 @@ class TasksController < ApplicationController
     tasks = Task.order(created_at: :desc)
     @query = tasks.ransack(params[:q])
     @tasks = @query.result(distinct: true)
-
-    # tasks = Task.order(created_at: :desc)
-    # @query = tasks.ransack(params[:q])
-    # @tasks = @query.result(distinct: true).where("state ILIKE :search OR title ILIKE :search", search:  "%#{params[:search]}%")
-
-    
-
-
   end
 
   def new
