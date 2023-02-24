@@ -67,3 +67,5 @@ gem "foreman", "~> 0.87.2"
 
 gem "paranoia", "~> 2.6"
 gem "ransack", "~> 3.2"
+
+gem "kaminari", "~> 1.2"

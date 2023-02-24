@@ -4,9 +4,10 @@ class TasksController < ApplicationController
   before_action :find_task, only: [:show, :edit, :update, :destroy]
 
   def index
-    tasks = Task.order(created_at: :desc)
-    @query = tasks.ransack(params[:q])
+    @task_page = Task.order(created_at: :desc).page(params[:page])
+    @query = @task_page.ransack(params[:q])
     @tasks = @query.result(distinct: true)
+
   end
 
   def new
