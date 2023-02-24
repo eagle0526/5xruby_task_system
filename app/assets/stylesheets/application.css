@@ -13,3 +13,31 @@
  *= require_tree .
  *= require_self
  */
+
+
+.pagination a, .pagination span.current, .pagination span.gap {
+    float: left;
+    padding: 0 14px;
+    line-height: 38px;
+    text-decoration: none;
+    background-color: white;
+    border: 1px solid #DDD;
+    border-left-width: 0;
+
+}
+
+.pagination a:hover {
+    background-color: beige;
+}
+
+.pagination {
+    border-left: 1px solid #ddd;
+}
+
+.pagination .page.current {
+    background-color: #6B7280;
+    color: #fff;
+    border-radius: 0.25rem;
+    /* padding: 0.25rem 0.5rem; */
+  }
+  

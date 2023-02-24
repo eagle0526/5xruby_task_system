@@ -1,5 +1,6 @@
 class Task < ApplicationRecord
   acts_as_paranoid
+  paginates_per 5
   
   validates :title, presence: true
   validates :content, presence: true
