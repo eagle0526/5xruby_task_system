@@ -8,7 +8,6 @@
 
 
 user = User.create(name: "yee", email: "xxx@gmail.com", password: "123asdzxc")
-# Task.create(title: 'abc', description: 'abc123')
 
 priority_arr = ["高", "中", "低"]
 state_arr = ["待處理", "進行中", "已完成"]
