@@ -24,22 +24,21 @@ feature "Task", type: :feature do
                 
     end
 
+    # page 1 
     visit tasks_path    
 
-    expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: "任務10")
-    expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: "任務9")
-    expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(2)", text: "任務8")
-    expect(page).to have_selector("tbody tr:nth-child(4) td:nth-child(2)", text: "任務7")
-    expect(page).to have_selector("tbody tr:nth-child(5) td:nth-child(2)", text: "任務6")
+    (1..5).each do |index|
+      expect(page).to have_selector("tbody tr:nth-child(#{index}) td:nth-child(2)", text: "任務#{ 10 - index + 1 }")
+    end
 
+    # page 2
     click_on "下一頁"
 
-    expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: "任務5")
-    expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: "任務4")
-    expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(2)", text: "任務3")
-    expect(page).to have_selector("tbody tr:nth-child(4) td:nth-child(2)", text: "任務2")
-    expect(page).to have_selector("tbody tr:nth-child(5) td:nth-child(2)", text: "任務1")
-
+    (1..5).each do |index|
+      expect(page).to have_selector("tbody tr:nth-child(#{index}) td:nth-child(2)", text: "任務#{ 5 - index + 1 }")
+    end
+    
+    # page 3 
     click_on "下一頁"
 
     expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: "任務0")
