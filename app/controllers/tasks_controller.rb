@@ -2,31 +2,26 @@ class TasksController < ApplicationController
 
   before_action :params_task, only: [:create, :update]
   before_action :find_task, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
-    @task_page = Task.order(created_at: :desc).page(params[:page])
+    @task_page = current_user.tasks.order(created_at: :desc).page(params[:page])
     @query = @task_page.ransack(params[:q])
     @tasks = @query.result(distinct: true)
 
   end
 
-  def new
-    @task = Task.new
-
+  def new    
+    @task = current_user.tasks.new   
     @submit_button = t('forms.submit_create', default: 'Create')
   end
 
 
   def create
     # render html: params
-    @task = Task.new(params_task)
-    # user = User.first
-    
-    # 先這樣設定，之後要刪掉
-    # @task.user_id = user.id
+    @task = current_user.tasks.new(params_task)  
 
-    if @task.save
-      
+    if @task.save      
       redirect_to root_path, notice: "成功新增任務"
     else
       render :new      
@@ -63,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def find_task
-    @task = Task.find(params[:id])
+    @task = current_user.tasks.find(params[:id])
   end  
   
 end

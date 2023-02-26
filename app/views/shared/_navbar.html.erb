@@ -1,0 +1,24 @@
+<nav class="fixed top-0 left-0 z-50 w-full px-3 py-2 bg-white shadow md:flex md-items-center md:justify-between">
+  <div class="flex items-center justify-between w-full">
+    <span class="text-2xl cursor-pointer">
+      <%= link_to "任務系統", root_path %>
+    </span>
+  <ul class="flex">
+    <div class="flex items-center justify-center">
+      
+      <% if user_signed_in? %>
+        <div class="mr-4 text-lg">
+          <%= current_user.name %>
+        </div>
+        <div>
+          <%= link_to "登出", session_path, method: "delete", class: "second-btn" %>
+        </div>
+        
+      <% else %>
+        <%= link_to "註冊", new_users_path, class: "border-btn mr-4" %>
+        <%= link_to "登入", login_users_path, class: "main-btn" %>
+      <% end %>
+      
+    </div>
+  </ul>
+</nav>
