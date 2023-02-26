@@ -1,0 +1,30 @@
+<section class="m-5">
+  <%= form_with model: @user do |f| %>
+
+    <div class = "my-4">
+      <%= f.label :姓名 %>
+      <%= f.text_field :name, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :信箱 %>
+      <%= f.text_field :email, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :密碼 %>
+      <%= f.text_field :password, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.label :再次輸入密碼 %>
+      <%= f.password_field :password_confirmation, class: "form-field" %>
+    </div>
+
+    <div class = "my-4">
+      <%= f.submit "會員註冊", class: "main-btn" %>
+      <%= link_to '回上一頁', root_path, class: "second-btn" %>      
+    </div>
+
+  <% end %>
+</section>
