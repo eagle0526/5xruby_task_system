@@ -33,6 +33,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem "dotenv-rails", "~> 2.8"
   gem "rspec-rails", "~> 6.0"
+  gem "factory_girl_rails", "~> 4.9"
 end
 
 group :development do
@@ -69,3 +70,5 @@ gem "paranoia", "~> 2.6"
 gem "ransack", "~> 3.2"
 
 gem "kaminari", "~> 1.2"
+
+

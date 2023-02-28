@@ -4,40 +4,48 @@ require 'capybara/rspec'
 
 feature "Task", type: :feature do
 
-  scenario "search title result" do
+  let!(:user) { create(:user) }  
+  let!(:task) { create_list(:task, 5, user: user) }
 
-    user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
-    task1 = Task.create(title: "任務一", content: "first task", state: "待處理", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
-    task2 = Task.create(title: "任務二", content: "second task", state: "待處理", start_time: "2024-02-26 11:00", end_time: "2025-02-26 12:00", user_id: user.id)
-    task3 = Task.create(title: "任務三", content: "third task", state: "進行中", start_time: "2024-02-27 11:00", end_time: "2025-02-27 12:00", user_id: user.id)
+  describe "Task list" do
+    context "User logged in" do      
+      
+      before do        
+        visit root_path
+        click_on "登入"
 
-    # 搜尋 "任務三"
-    visit tasks_path
-    fill_in "q_title_or_state_cont", with: task3.title
-    click_on "篩選"
+        fill_in "email", with: "a034506618@gmail.com"
+        fill_in "password", with: "111aa111"
 
+        click_on "會員登入"
 
-    expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: task3.title)
-    expect(page).not_to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: task2.title)
-    expect(page).not_to have_selector("tbody tr:nth-child(3) td:nth-child(2)", text: task1.title)
+        expect(page.current_path).to eq tasks_path
+        expect(page).to have_text '任務列表'
+      end
 
+      scenario "search state result" do  
+
+        # 搜尋 "進行中"        
+        fill_in "q_title_or_state_cont", with: "進行中"
+        click_on "篩選"
+
+        expect(page).to have_text '進行中'
+        expect(page).not_to have_text '待處理'
+        expect(page).not_to have_text '已完成'
+      end
+
+      scenario "search title result" do  
+
+        # 搜尋 "Task 1"        
+        fill_in "q_title_or_state_cont", with: "Task 1"
+        click_on "篩選"
+
+        expect(page).to have_text 'Task 1'
+        expect(page).not_to have_text 'Task 2'
+        expect(page).not_to have_text 'Task 3'
+      end
+
+    end
   end
-
-  scenario "search title result" do
-    user = User.create(name: "user1", email: "test@gmail.com", password: "111aaa")
-    task1 = Task.create(title: "任務一", content: "first task", state: "待處理", start_time: "2024-02-25 11:00", end_time: "2025-02-25 12:00", user_id: user.id)
-    task2 = Task.create(title: "任務二", content: "second task", state: "進行中", start_time: "2024-02-26 11:00", end_time: "2025-02-26 12:00", user_id: user.id)
-    task3 = Task.create(title: "任務三", content: "third task", state: "待處理", start_time: "2024-02-27 11:00", end_time: "2025-02-27 12:00", user_id: user.id)
-
-    # 搜尋 "待處理"
-    visit tasks_path
-    fill_in "q_title_or_state_cont", with: task1.state
-    click_on "篩選"
-
-    expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(2)", text: task3.title)
-    expect(page).not_to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: task2.title)
-    expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(2)", text: task1.title)
-
-  end
-
 end
+
