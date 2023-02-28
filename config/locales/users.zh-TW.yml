@@ -1,0 +1,11 @@
+zh-TW:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "信箱不能為空"
+            password: 
+              too_short: "密碼至少要8個字"
+            
