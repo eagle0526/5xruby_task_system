@@ -1,6 +1,8 @@
 <section class="m-5">
   <%= form_with model: @user do |f| %>
 
+    <%= render "error_messages", users: @user %>
+
     <div class = "my-4">
       <%= f.label :姓名 %>
       <%= f.text_field :name, class: "form-field" %>
