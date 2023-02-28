@@ -10,5 +10,5 @@ Rails.application.routes.draw do
 
   resource :session, only: [:create, :destroy]
 
-  root 'tasks#index'
+  root 'home#index'
 end

@@ -1,1 +1,39 @@
-<h2 class="m-20 text-2xl">首頁</h2>
+
+<h2>首頁</h2>
+
+<div class="mt-4">
+  <%= link_to "新增任務", new_task_path, class: "main-btn" %>
+</div>
+
+
+<section>
+  <div>
+    <h3 class="mb-4 text-center">所有使用者</h3>
+  </div>
+
+  <table class="w-full text-base text-left text-gray-500 dark:text-gray-400">
+      <thead class="text-base text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+          <th class="px-6 py-3">id</th>
+          <th class="px-6 py-3">姓名</th>
+          <th class="px-6 py-3">信箱</th>
+      </tr>
+      </thead>
+      
+      <tbody>
+      <% @users.each do |user| %>
+      <tr>
+          <td class="px-6 py-4"><%= link_to user.id, users_path(user) %></td>
+          <td class="px-6 py-4"><%= user.name %></td>
+          <td class="px-6 py-4"><%= user.email %></td>
+
+          <td class="px-6 py-4"><%= link_to "編輯", edit_users_path(user), class: "main-btn px-4" %></td>                
+          <td class="px-6 py-4"><%= link_to '刪除', users_path(user), data: {method: "delete"}, class: "second-btn" %></td>   
+      </tr>
+      <% end %>  
+      </tbody>
+      
+  </table>
+
+
+</section>

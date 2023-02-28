@@ -75,5 +75,8 @@ RSpec.configure do |config|
       with.library :rails
     end
   end
+
+  Dir[Rails.root.join("spec/support/**/*.rb")].sort.each { |file| require file }
+
   
 end
