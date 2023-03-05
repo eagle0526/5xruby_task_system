@@ -9,6 +9,9 @@
   <div>
     <h3 class="mb-4 text-center">任務列表</h3>
   </div>
+  <div>
+    <h3 class="mb-4 text-center">當下時間：<%= Time.now.strftime("%Y/%m/%d-%R") %></h3>
+  </div>
 
   <div class = "my-10 mr-10">
     <%= search_form_for @query do |f| %>
@@ -46,7 +49,19 @@
           <td class="px-6 py-4"><%= task.title %></td>
           <td class="px-6 py-4"><%= task.content %></td>
           <td class="px-6 py-4"><%= task.priority %></td>
-          <td class="px-6 py-4"><%= task.state %></td>
+          
+          <td class="px-6 py-4">              
+            <% case task.aasm.current_state %>
+              <% when :pending %>
+                <span class="text-gray-500">待處理</span>
+              <% when :doing %>
+                <span class="text-green-500">進行中</span>
+              <% when :ending %>
+                <span class="text-red-500">已完成</span>
+            <% end %>
+          </td>
+
+
           <td class="px-6 py-4"><%= task.classification %></td>
           
           <td class="px-6 py-4">

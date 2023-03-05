@@ -19,10 +19,10 @@
       <%= f.select :priority, [["高", "高"], ["中", "中"], ["低", "低"]], {},  class: "form-field" %>
     </div>
 
-    <div class = "my-4">
-      <%= f.label :任務狀態 %>
-      <%= f.select :state, [["待處理", "待處理"], ["進行中", "進行中"], ["已完成", "已完成"]], {}, class: "form-field" %>
-    </div>
+    <%# <div class = "my-4"> %>
+      <%#= f.label :任務狀態 %>
+      <%#= f.select :state, [["pending", "pending"]], {}, class: "form-field" %>
+    <%# </div> %>
 
     <div class = "my-4">
       <%= f.label :分類 %>
@@ -52,7 +52,7 @@
 
     <div class = "my-4">
       <%= f.submit @submit_button, class: "main-btn" %>
-      <%= link_to '回上一頁', root_path, class: "second-btn" %>      
+      <%= link_to '回上一頁', tasks_path, class: "second-btn" %>      
     </div>
 
   <% end %>
