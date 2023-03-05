@@ -141,3 +141,37 @@ Processing by TasksController#index as HTML
 
 
 
+## 3、部署流程
+
+(1) 首先打開老師書本的網站部署教學 - [連結](https://railsbook.tw/chapters/32-deployment-with-heroku#%E5%AE%89%E8%A3%9D-heroku-cli)   
+
+(2) 創建heroku帳號   
+
+(3) 安裝cli  
+
+(4) 部署準備：heroku create -> 這個指令會幫我們做兩件事  
+ - 在heroku上幫我們開一台伺服器，名字如果沒有特別取的話，他會自動亂數產生  
+ - 會在 Git 加上一個名為 heroku 的遠端節點   
+
+(5) 推向heroku
+ - 這邊要特別注意的是，heroku只吃master分支，而我們是要用main分支推上去，因此打指令的時候要這樣打
+
+ ```shell
+ $ git push heroku main:master
+ ```   
+
+(6*) 使用PG資料庫
+ - 由於一開始我們就使用PG資料庫了，因此不用做這一步驟
+
+(7) 成功推上heroku的過程
+ - 在推的過程如果有遇到錯誤，一個一個慢慢解掉
+
+(8) 在heroku具現化資料庫
+```shell
+$ heroku run rails db:migrate
+```
+
+(9) 更改Procfile檔案
+ - 如果沒把Procfile檔案，改成Procfile.dev的話，網站會跑不出來
+
+ (10) heroku server 和 PG資料庫付費
