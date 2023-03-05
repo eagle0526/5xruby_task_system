@@ -72,3 +72,5 @@ gem "ransack", "~> 3.2"
 gem "kaminari", "~> 1.2"
 
 
+
+gem "aasm", "~> 5.5"

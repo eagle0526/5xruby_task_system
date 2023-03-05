@@ -26,11 +26,11 @@ feature "Task", type: :feature do
       scenario "search state result" do  
 
         # 搜尋 "進行中"        
-        fill_in "q_title_or_state_cont", with: "進行中"
+        fill_in "q_title_or_state_cont", with: "待處理"
         click_on "篩選"
 
-        expect(page).to have_text '進行中'
-        expect(page).not_to have_text '待處理'
+        expect(page).to have_text '待處理'
+        expect(page).not_to have_text '進行中'
         expect(page).not_to have_text '已完成'
       end
 

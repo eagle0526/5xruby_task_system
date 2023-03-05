@@ -26,8 +26,7 @@ feature "Task", type: :feature do
         click_on "新增任務"
         fill_in "task_title", with: "新任務"
         fill_in "task_content", with: "我是新任務我是新任務我是新任務我是新任務我是新任務"
-        select "高", from: "task_priority"
-        select "待處理", from: "task_state"
+        select "高", from: "task_priority"        
         fill_in "task_classification", with: "後端工程師"
   
         fill_in "task_start_time", with: "2023-02-24 11:55"
