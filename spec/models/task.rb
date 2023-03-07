@@ -16,7 +16,7 @@ RSpec.describe Task, :type => :model do
   describe "ransackable_attributes" do
     it "return correct attributes" do
       attributes = Task.ransackable_attributes
-      expect(attributes).to eq(["classification", "content", "state", "title"])      
+      expect(attributes).to eq(["classification", "content", "state_translated", "title"])      
     end
   end
 
@@ -30,10 +30,22 @@ RSpec.describe Task, :type => :model do
       expect(task.doing?).to be true
     end
 
-    it 'state change from doing to ending' do
+    it 'state change from doing to finishing' do
       task.start!
       task.end!
-      expect(task.ending?).to be true
+      expect(task.finishing?).to be true
+    end
+  end
+
+
+  describe "ransacker state translated" do
+    it "maps state_translated to state column with correct values" do
+      expect(Task.ransackable_attributes).to include('state_translated')
+
+      allow(I18n).to receive(:t).with('tasks.pending').and_return('待處理')      
+      allow(I18n).to receive(:t).with('tasks.doing').and_return('進行中')      
+      allow(I18n).to receive(:t).with('tasks.finishing').and_return('已完成')
+
     end
   end
 

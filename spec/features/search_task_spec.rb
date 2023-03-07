@@ -25,19 +25,19 @@ feature "Task", type: :feature do
 
       scenario "search state result" do  
 
-        # 搜尋 "進行中"        
-        fill_in "q_title_or_state_cont", with: "待處理"
+        # 搜尋 "已完成"        
+        fill_in "q_state_translated_cont", with: "已完成"
         click_on "篩選"
 
-        expect(page).to have_text '待處理'
+        expect(page).to have_text '已完成'
         expect(page).not_to have_text '進行中'
-        expect(page).not_to have_text '已完成'
+        expect(page).not_to have_text '待處理'
       end
 
       scenario "search title result" do  
 
         # 搜尋 "Task 1"        
-        fill_in "q_title_or_state_cont", with: "Task 1"
+        fill_in "q_title_cont", with: "Task 1"
         click_on "篩選"
 
         expect(page).to have_text 'Task 1'
