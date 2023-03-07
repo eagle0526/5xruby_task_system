@@ -16,11 +16,19 @@
   <div class = "my-10 mr-10">
     <%= search_form_for @query do |f| %>
       <div class="m-2">
-        <%= f.label :標題或狀態搜尋, class: "text-xl tracking-widest" %>
-        <%= f.search_field :title_or_state_cont, class: "form-field w-1/2" %>
+      
+        <div class="my-2">
+          <%= f.label :標題搜尋, class: "text-xl tracking-widest" %>
+          <%= f.search_field :title_cont, class: "form-field w-1/2" %>
+        </div>
+
+        <div class="my-2">
+          <%= f.label :狀態搜尋, class: "text-xl tracking-widest" %>
+          <%= f.search_field :state_translated_cont, class: "form-field w-1/2" %>
+        </div>
 
         <%= f.submit "篩選", class: "main-btn" %>  
-        <%= link_to "清空搜尋", root_path, class: "second-btn" %>
+        <%= link_to "清空搜尋", tasks_path, class: "second-btn" %>
       </div>            
     <% end %>
   </div>
@@ -56,7 +64,7 @@
                 <span class="text-gray-500">待處理</span>
               <% when :doing %>
                 <span class="text-green-500">進行中</span>
-              <% when :ending %>
+              <% when :finishing %>
                 <span class="text-red-500">已完成</span>
             <% end %>
           </td>

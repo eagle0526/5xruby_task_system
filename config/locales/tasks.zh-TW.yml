@@ -5,9 +5,9 @@ zh-TW:
     High: '高'
     Medium: "中"
     Low: "低"
-    Pending: "待處理"
-    Doing: "進行中"
-    Ending: "已完成"
+    pending: "待處理"
+    doing: "進行中"
+    finishing: "已完成" 
     title: "標題"
 
   forms:
