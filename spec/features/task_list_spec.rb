@@ -23,9 +23,9 @@ feature "Task", type: :feature do
       end
 
       scenario "task order by create time" do                
-        expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(1)", text: "3")
-        expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(1)", text: "2")
-        expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(1)", text: "1")
+        expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(1)", text: task.last.id)
+        expect(page).to have_selector("tbody tr:nth-child(2) td:nth-child(1)", text: task.second.id)
+        expect(page).to have_selector("tbody tr:nth-child(3) td:nth-child(1)", text: task.first.id)
       end
 
     end
