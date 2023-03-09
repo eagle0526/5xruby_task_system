@@ -77,4 +77,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: code-coverage
-          path: coverage/    
+          path: coverage/
+          

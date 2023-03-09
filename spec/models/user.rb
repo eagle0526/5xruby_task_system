@@ -9,7 +9,7 @@ RSpec.describe User, :type => :model do
 
   describe "encrypts password" do
     it "before create" do
-      user = FactoryGirl.create(:user, password: "password123")
+      user = FactoryBot.create(:user, password: "password123")
       expected_password = Digest::SHA1.hexdigest("addpassword123salt")
       expect(user.password).to eq(expected_password)
     end
