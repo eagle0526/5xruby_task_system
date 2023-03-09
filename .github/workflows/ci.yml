@@ -68,7 +68,7 @@ jobs:
         run: |
           bundle exec rake db:create
           bundle exec rake db:migrate
-          bundle exec rails webpacker:compile
+          bundle exec rake assets:precompile
 
       - name: Run Selenium tests
         run: bundle exec rspec
