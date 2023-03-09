@@ -46,12 +46,7 @@ jobs:
         run: bin/rails db:schema:load
       # Add or replace test runners here
       - name: Run tests
-        run: bundle exec rspec
-      # Add Code Coverage
-      - name: Create Coverage Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: code-coverage
-          path: coverage/    
+        run: bundle exec rspec --format documentation
+  
 
           
