@@ -5,7 +5,7 @@ require 'capybara/rspec'
 feature "Task", type: :feature do
 
   let!(:user) { create(:user) }  
-  let!(:task) { create_list(:task, 5, user: user) }
+  let!(:task) { create_list(:task, 10, user: user) }
 
   describe "Task list" do
     context "User logged in" do      
@@ -36,13 +36,35 @@ feature "Task", type: :feature do
 
       scenario "search title result" do  
 
-        # 搜尋 "Task 1"        
-        fill_in "q_title_cont", with: "Task 1"
+        # 搜尋 "task.last.title"                
+        fill_in "q_title_cont", with: task.last.title        
         click_on "篩選"
 
-        expect(page).to have_text 'Task 1'
-        expect(page).not_to have_text 'Task 2'
-        expect(page).not_to have_text 'Task 3'
+        expect(page).to have_text task.last.title
+        expect(page).not_to have_text task.first.title        
+      end
+
+      scenario "search priority result" do  
+
+        # 搜尋 "高"                
+        select "高", from: "q_priority_eq"        
+        click_on "篩選"
+
+        expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(4)", text: "高")
+
+        # 搜尋 "中"
+        click_on "清空搜尋"
+        select "中", from: "q_priority_eq"        
+        click_on "篩選"
+
+        expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(4)", text: "中")
+
+        # 搜尋 "低"
+        click_on "清空搜尋"
+        select "低", from: "q_priority_eq"        
+        click_on "篩選"
+
+        expect(page).to have_selector("tbody tr:nth-child(1) td:nth-child(4)", text: "低")
       end
 
     end

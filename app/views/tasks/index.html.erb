@@ -24,7 +24,12 @@
 
         <div class="my-2">
           <%= f.label :狀態搜尋, class: "text-xl tracking-widest" %>
-          <%= f.search_field :state_translated_cont, class: "form-field w-1/2" %>
+          <%= f.search_field :state_translated_cont, class: "form-field w-1/2" %>          
+        </div>
+        
+        <div class="my-2">
+          <%= f.label :重要性搜尋, class: "text-xl tracking-widest" %>
+          <%= f.select :priority_eq, options_for_select([['',''], ['高', '高'], ['中', '中'], ['低', '低']]), {}, class: "form-field w-1/2" %>
         </div>
 
         <%= f.submit "篩選", class: "main-btn" %>  

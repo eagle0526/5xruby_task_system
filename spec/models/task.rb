@@ -16,7 +16,7 @@ RSpec.describe Task, :type => :model do
   describe "ransackable_attributes" do
     it "return correct attributes" do
       attributes = Task.ransackable_attributes
-      expect(attributes).to eq(["classification", "content", "state_translated", "title"])      
+      expect(attributes).to eq(["classification", "content", "state_translated", "title", "priority"])      
     end
   end
 
